@@ -27,6 +27,4 @@ class LoginViewModel(
             onError = { _state.value = LoginState.Error(it.message) }
         )
     }
-
-    
 }

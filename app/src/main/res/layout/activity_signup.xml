@@ -8,20 +8,20 @@
     android:padding="8dp">
 
     <LinearLayout
-        android:id="@+id/loginFieldLayout"
+        android:id="@+id/signupFieldLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/confirmLoginButton"
+        app:layout_constraintBottom_toTopOf="@id/confirmSignupButton"
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/loginUsernameEt"
+            android:id="@+id/signupUsernameEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <EditText
-            android:id="@+id/loginPasswordEt"
+            android:id="@+id/signupPasswordEt"
             android:layout_marginTop="32dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -29,10 +29,10 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/confirmLoginButton"
+        android:id="@+id/confirmSignupButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login_button"
+        android:text="@string/signup_button"
         android:textAllCaps="true"
         app:layout_constraintBottom_toBottomOf="parent" />
 
