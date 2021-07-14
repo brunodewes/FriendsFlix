@@ -31,8 +31,13 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupListeners() {
-
+    private fun setupListeners() = binding.run {
+        confirmSignupButton.setOnClickListener {
+            viewModel.signUp(
+                username = signupUsernameEt.text.toString(),
+                password = signupPasswordEt.text.toString()
+            )
+        }
     }
 
     private fun navigateToHome() {

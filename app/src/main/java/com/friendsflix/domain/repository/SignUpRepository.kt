@@ -1,5 +1,5 @@
 package com.friendsflix.domain.repository
 
 interface SignUpRepository {
-    fun signUp(username: String, password: String): Boolean
+    suspend fun signUp(username: String, password: String): Boolean
 }
