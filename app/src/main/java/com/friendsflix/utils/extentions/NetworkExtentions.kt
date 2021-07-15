@@ -2,6 +2,7 @@ package com.friendsflix.utils.extentions
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
 
 fun <T> CoroutineScope.launchSuspendFun(
     block: suspend CoroutineScope.() -> T,
@@ -20,4 +21,8 @@ fun <T> CoroutineScope.launchSuspendFun(
             onError?.invoke(t)
         }
     }
+}
+
+inline fun <reified T> service(retrofit: Retrofit.Builder): Lazy<T> = lazy {
+    retrofit.build().create(T::class.java)
 }

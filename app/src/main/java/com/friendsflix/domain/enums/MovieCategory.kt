@@ -1,4 +1,4 @@
-package com.friendsflix.domain.model
+package com.friendsflix.domain.enums
 
 enum class MovieCategory(
     val title: String

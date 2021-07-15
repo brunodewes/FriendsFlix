@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.friendsflix.databinding.ItemMovieCategoryListBinding
 import com.friendsflix.domain.model.Movie
-import com.friendsflix.domain.model.MovieCategory
+import com.friendsflix.domain.enums.MovieCategory
 import com.friendsflix.utils.extentions.setupRecyclerView
 
 class MovieCategoryListAdapter(
