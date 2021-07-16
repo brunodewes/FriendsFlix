@@ -1,9 +1,11 @@
 package com.friendsflix.presentation.signup
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.friendsflix.databinding.ActivitySignupBinding
+import com.friendsflix.presentation.home.HomeActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignUpActivity : AppCompatActivity() {
@@ -41,7 +43,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun navigateToHome() {
-
+        startActivity(Intent(this, HomeActivity::class.java))
     }
 
     private fun showLoading(loading: Boolean) {

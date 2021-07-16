@@ -11,14 +11,10 @@ class HomeViewModel(
     private val homeRepository: HomeRepository
 ) : ViewModel() {
 
-    init {
-        getPopularMovies()
-    }
-
     private val _state = MutableLiveData<HomeState>()
     val state: LiveData<HomeState> = _state
 
-    private fun getPopularMovies() {
+    fun getPopularMovies() {
         viewModelScope.launchSuspendFun(
             block = { homeRepository.fetchTopRatedMovies() },
             onSuccess = { _state.value = HomeState.Movies(it) },

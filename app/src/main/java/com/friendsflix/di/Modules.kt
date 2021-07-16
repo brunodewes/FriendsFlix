@@ -1,5 +1,7 @@
 package com.friendsflix.di
 
+import androidx.room.Room
+import com.friendsflix.data.database.MovieDatabase
 import com.friendsflix.data.remote.datasource.MovieDataSource
 import com.friendsflix.data.remote.datasource.MovieDataSourceImpl
 import com.friendsflix.data.repository.HomeRepositoryImpl
@@ -16,6 +18,7 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -29,8 +32,17 @@ const val BASE_URL = "https://api.themoviedb.org/3/"
 val dataModule = module {
     factory<MovieDataSource> { MovieDataSourceImpl(get()) }
     factory<HomeRepository> { HomeRepositoryImpl(get()) }
-    factory<LoginRepository> { LoginRepositoryImpl() }
-    factory<SignUpRepository> { SignUpRepositoryImpl() }
+    factory<LoginRepository> { LoginRepositoryImpl(get()) }
+    factory<SignUpRepository> { SignUpRepositoryImpl(get()) }
+
+    single {
+        Room.databaseBuilder(
+            androidApplication(),
+            MovieDatabase::class.java,
+            "db"
+        ).build()
+    }
+    factory { get<MovieDatabase>().userDao() }
 }
 
 val networkModule = module {

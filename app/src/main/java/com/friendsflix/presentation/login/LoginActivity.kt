@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.friendsflix.databinding.ActivityLoginBinding
 import com.friendsflix.presentation.home.HomeActivity
+import com.friendsflix.presentation.signup.SignUpActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
@@ -40,10 +41,18 @@ class LoginActivity : AppCompatActivity() {
                 password = loginPasswordEt.text.toString()
             )
         }
+
+        confirmSignupButton.setOnClickListener {
+            navigateToSignup()
+        }
     }
 
     private fun navigateToHome() {
         startActivity(Intent(this, HomeActivity::class.java))
+    }
+
+    private fun navigateToSignup() {
+        startActivity(Intent(this, SignUpActivity::class.java))
     }
 
     private fun showLoading(loading: Boolean) {

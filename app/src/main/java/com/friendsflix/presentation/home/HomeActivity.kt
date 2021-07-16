@@ -24,6 +24,7 @@ class HomeActivity : AppCompatActivity() {
 
         setupRecyclerView()
         setupViewModel()
+        viewModel.getPopularMovies()
     }
 
     private fun setupRecyclerView() {
