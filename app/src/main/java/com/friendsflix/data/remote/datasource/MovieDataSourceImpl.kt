@@ -1,5 +1,6 @@
 package com.friendsflix.data.remote.datasource
 
+import com.friendsflix.data.remote.model.MovieDetailResponse
 import com.friendsflix.data.remote.model.MovieResponse
 import com.friendsflix.data.remote.service.MovieService
 import com.friendsflix.utils.extentions.service
@@ -13,4 +14,16 @@ class MovieDataSourceImpl(
 
     override suspend fun getTopRatedMovies(): List<MovieResponse> =
         service.getTopRatedMovies().results
+
+    override suspend fun getMovieDetail(movieId: Int): MovieDetailResponse {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun favoriteMovie(movieId: Int, favorite: Boolean): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun rateMovie(movieId: Int, rating: Float): Float {
+        TODO("Not yet implemented")
+    }
 }
