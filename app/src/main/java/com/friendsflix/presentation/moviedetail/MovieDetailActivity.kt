@@ -3,14 +3,20 @@ package com.friendsflix.presentation.moviedetail
     import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+    import android.os.Message
+    import android.widget.Toast
+    import androidx.appcompat.app.AppCompatActivity
 import com.friendsflix.databinding.ActivityMovieDetailBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
+    import com.friendsflix.domain.model.MovieDetail
+    import com.friendsflix.domain.model.MovieDetailComment
+    import com.friendsflix.utils.extentions.setupRecyclerView
+    import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.Serializable
 
 class MovieDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMovieDetailBinding
+    private val adapter by lazy { MovieDetailCommentAdapter() }
     private val viewModel by viewModel<MovieDetailViewModel>()
 
     data class Args(val movieId: Int) : Serializable
@@ -28,14 +34,38 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun setupViewModel() {
         viewModel.state.observe(this) { state ->
             when (state) {
-                is MovieDetailState.ShowMovieDetail ->
-                is MovieDetailState.ShowError ->
-                is MovieDetailState.Loading ->
-                is MovieDetailState.UpdateComments ->
-                is MovieDetailState.UpdateRating ->
-                is MovieDetailState.UpdateFavorite ->
+                is MovieDetailState.ShowMovieDetail -> showMovieDetail(state.movieDetail)
+                is MovieDetailState.ShowError -> showError(state.message)
+                is MovieDetailState.Loading -> showLoading(state.loading)
+                is MovieDetailState.UpdateComments -> updateComments(state.comments)
+                is MovieDetailState.UpdateRating -> updateRating(state.rating)
+                is MovieDetailState.UpdateFavorite -> updateFavorite(state.favorite)
             }
         }
+    }
+
+    private fun updateFavorite(favorite: Boolean) {
+        TODO("Not yet implemented")
+    }
+
+    private fun updateRating(rating: Float) {
+        TODO("Not yet implemented")
+    }
+
+    private fun updateComments(comments: List<MovieDetailComment>) {
+        TODO("Not yet implemented")
+    }
+
+    private fun showMovieDetail(movieDetail: MovieDetail) {
+        binding.commentsRv.setupRecyclerView(adapter)
+    }
+
+    private fun showError(message: String?) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showLoading(loading: Boolean) {
+        TODO()
     }
 
     private fun fetchMovieDetail() {
