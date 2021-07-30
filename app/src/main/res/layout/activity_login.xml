@@ -4,27 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.login.LoginActivity"
-    android:padding="8dp">
+    android:padding="8dp"
+    tools:context=".presentation.login.LoginActivity">
 
     <LinearLayout
         android:id="@+id/loginFieldLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/confirmLoginButton"
-        android:orientation="vertical">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/loginUsernameEt"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:hint="Usuário">
 
-        <EditText
-            android:id="@+id/loginPasswordEt"
-            android:layout_marginTop="32dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginUsernameEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:hint="Senha">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginPasswordEt"
+                android:inputType="numberPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
@@ -35,13 +52,13 @@
         android:text="@string/login_button"
         android:textAllCaps="true"
 
-        app:layout_constraintBottom_toTopOf="@id/confirmSignupButton"/>
+        app:layout_constraintBottom_toTopOf="@id/confirmSignupButton" />
 
     <Button
         android:id="@+id/confirmSignupButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/signup_button"
+        android:text="NÃO POSSUI UMA CONTA? CADASTRE-SE"
         android:textAllCaps="true"
         app:layout_constraintBottom_toBottomOf="parent" />
 

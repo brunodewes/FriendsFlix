@@ -15,9 +15,8 @@ class MovieDataSourceImpl(
     override suspend fun getTopRatedMovies(): List<MovieResponse> =
         service.getTopRatedMovies().results
 
-    override suspend fun getMovieDetail(movieId: Int): MovieDetailResponse {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getMovieDetail(movieId: Int): MovieDetailResponse =
+        service.getMovieDetail(movieId)
 
     override suspend fun favoriteMovie(movieId: Int, favorite: Boolean): Boolean {
         TODO("Not yet implemented")

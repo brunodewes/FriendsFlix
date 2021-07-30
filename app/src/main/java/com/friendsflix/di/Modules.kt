@@ -6,13 +6,16 @@ import com.friendsflix.data.remote.datasource.MovieDataSource
 import com.friendsflix.data.remote.datasource.MovieDataSourceImpl
 import com.friendsflix.data.repository.HomeRepositoryImpl
 import com.friendsflix.data.repository.LoginRepositoryImpl
+import com.friendsflix.data.repository.MovieDetailRepositoryImpl
 import com.friendsflix.data.repository.SignUpRepositoryImpl
 import com.friendsflix.domain.repository.HomeRepository
 import com.friendsflix.domain.repository.LoginRepository
+import com.friendsflix.domain.repository.MovieDetailRepository
 import com.friendsflix.domain.repository.SignUpRepository
 import com.friendsflix.network.ApiKeyInterceptor
 import com.friendsflix.presentation.home.HomeViewModel
 import com.friendsflix.presentation.login.LoginViewModel
+import com.friendsflix.presentation.moviedetail.MovieDetailViewModel
 import com.friendsflix.presentation.signup.SignUpViewModel
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
@@ -34,6 +37,7 @@ val dataModule = module {
     factory<HomeRepository> { HomeRepositoryImpl(get()) }
     factory<LoginRepository> { LoginRepositoryImpl(get()) }
     factory<SignUpRepository> { SignUpRepositoryImpl(get()) }
+    factory<MovieDetailRepository> { MovieDetailRepositoryImpl(get()) }
 
     single {
         Room.databaseBuilder(
@@ -74,4 +78,5 @@ val presentationModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { HomeViewModel(get()) }
+    viewModel { MovieDetailViewModel(get()) }
 }

@@ -6,7 +6,8 @@ import android.os.Bundle
     import android.os.Message
     import android.widget.Toast
     import androidx.appcompat.app.AppCompatActivity
-import com.friendsflix.databinding.ActivityMovieDetailBinding
+    import com.bumptech.glide.Glide
+    import com.friendsflix.databinding.ActivityMovieDetailBinding
     import com.friendsflix.domain.model.MovieDetail
     import com.friendsflix.domain.model.MovieDetailComment
     import com.friendsflix.utils.extentions.setupRecyclerView
@@ -57,7 +58,12 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun showMovieDetail(movieDetail: MovieDetail) {
-        binding.commentsRv.setupRecyclerView(adapter)
+        // binding.commentsRv.setupRecyclerView(adapter)
+
+        Glide.with(this)
+            .load("https://image.tmdb.org/t/p/w500/"+movieDetail.imageUrl)
+            .centerCrop()
+            .into(binding.movieImage)
     }
 
     private fun showError(message: String?) {
@@ -65,7 +71,6 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun showLoading(loading: Boolean) {
-        TODO()
     }
 
     private fun fetchMovieDetail() {

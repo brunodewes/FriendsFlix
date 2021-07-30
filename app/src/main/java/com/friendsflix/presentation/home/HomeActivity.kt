@@ -1,12 +1,12 @@
 package com.friendsflix.presentation.home
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.friendsflix.databinding.ActivityHomeBinding
 import com.friendsflix.domain.model.Movie
 import com.friendsflix.presentation.home.movielist.MovieCategoryListAdapter
+import com.friendsflix.presentation.moviedetail.MovieDetailActivity
 import com.friendsflix.utils.extentions.setupRecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,7 +28,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        adapter = MovieCategoryListAdapter { Log.d("Movie clicked", "setupRecyclerView: ${it.id}") }
+        adapter = MovieCategoryListAdapter { openMovieDetailActivity(it.id) }
         binding.movieCategoriesRv.setupRecyclerView(adapter)
     }
 
@@ -52,5 +52,9 @@ class HomeActivity : AppCompatActivity() {
 
     private fun showError(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun openMovieDetailActivity(movieId: Int) {
+        MovieDetailActivity.newInstance(movieId, this)
     }
 }
