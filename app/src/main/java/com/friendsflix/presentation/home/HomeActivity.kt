@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.friendsflix.databinding.ActivityHomeBinding
+import com.friendsflix.domain.enums.MovieCategory
 import com.friendsflix.domain.model.Movie
 import com.friendsflix.presentation.home.movielist.MovieCategoryListAdapter
 import com.friendsflix.presentation.moviedetail.MovieDetailActivity
@@ -43,7 +44,16 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun showMovies(movies: List<Movie>) {
-        adapter.movies = movies
+        val list = arrayListOf<Movie>()
+
+        movies.forEach {
+            list.add(it.copy(category = MovieCategory.TOP_RATED))
+            list.add(it.copy(category = MovieCategory.NEW))
+            list.add(it.copy(category = MovieCategory.POPULAR))
+        }
+
+
+        adapter.movies = list
     }
 
     private fun showLoading(loading: Boolean) {

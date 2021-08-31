@@ -37,7 +37,9 @@ class SignUpActivity : AppCompatActivity() {
         confirmSignupButton.setOnClickListener {
             viewModel.signUp(
                 username = signupUsernameEt.text.toString(),
-                password = signupPasswordEt.text.toString()
+                password = signupPasswordEt.text.toString(),
+                name = nome.text.toString(),
+                age = idade.text.toString().toInt()
             )
         }
     }
@@ -47,7 +49,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun showLoading(loading: Boolean) {
-
+        binding.confirmSignupButton.isEnabled = !loading
     }
 
     private fun showError(message: String?) {

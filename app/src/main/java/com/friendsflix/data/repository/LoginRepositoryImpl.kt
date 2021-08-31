@@ -1,12 +1,12 @@
 package com.friendsflix.data.repository
 
-import com.friendsflix.data.database.dao.UserDao
+import com.friendsflix.data.remote.datasource.MovieDataSource
 import com.friendsflix.domain.repository.LoginRepository
 
 class LoginRepositoryImpl(
-    private val userDao: UserDao
+    private val movieDataSource: MovieDataSource
 ) : LoginRepository {
-    override suspend fun login(username: String, password: String): Long {
-        return userDao.login(username, password)
+    override suspend fun login(username: String, password: String) {
+        movieDataSource.login(username, password)
     }
 }

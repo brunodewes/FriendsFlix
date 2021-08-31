@@ -4,6 +4,6 @@ import java.util.*
 
 class MovieDetailCommentResponse(
     val comment: String,
-    val date: Date,
+    val date: String,
     val user: UserResponse
 )

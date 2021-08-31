@@ -14,12 +14,14 @@ class SignUpViewModel(
     private val _state = MutableLiveData<SignUpState>()
     val state: LiveData<SignUpState> = _state
 
-    fun signUp(username: String, password: String) {
+    fun signUp(username: String, password: String, name: String, age: Int) {
         viewModelScope.launchSuspendFun(
             block = {
                 signUpRepository.signUp(
                     username = username,
-                    password = password
+                    password = password,
+                    name = name,
+                    age = age
                 )
             },
             onSuccess = { _state.value = SignUpState.NavigateToHome },

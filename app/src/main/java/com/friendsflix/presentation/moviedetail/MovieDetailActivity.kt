@@ -1,17 +1,15 @@
 package com.friendsflix.presentation.moviedetail
 
-    import android.content.Context
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-    import android.os.Message
-    import android.widget.Toast
-    import androidx.appcompat.app.AppCompatActivity
-    import com.bumptech.glide.Glide
-    import com.friendsflix.databinding.ActivityMovieDetailBinding
-    import com.friendsflix.domain.model.MovieDetail
-    import com.friendsflix.domain.model.MovieDetailComment
-    import com.friendsflix.utils.extentions.setupRecyclerView
-    import org.koin.androidx.viewmodel.ext.android.viewModel
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.friendsflix.databinding.ActivityMovieDetailBinding
+import com.friendsflix.domain.model.MovieDetail
+import com.friendsflix.domain.model.MovieDetailComment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.Serializable
 
 class MovieDetailActivity : AppCompatActivity() {
@@ -61,7 +59,7 @@ class MovieDetailActivity : AppCompatActivity() {
         // binding.commentsRv.setupRecyclerView(adapter)
 
         Glide.with(this)
-            .load("https://image.tmdb.org/t/p/w500/"+movieDetail.imageUrl)
+            .load("https://image.tmdb.org/t/p/w500/" + movieDetail.imageUrl)
             .centerCrop()
             .into(binding.movieImage)
     }
