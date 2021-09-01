@@ -14,6 +14,8 @@ import com.friendsflix.network.ApiKeyInterceptor
 import com.friendsflix.presentation.home.HomeViewModel
 import com.friendsflix.presentation.login.LoginViewModel
 import com.friendsflix.presentation.moviedetail.MovieDetailViewModel
+import com.friendsflix.presentation.profile.ProfileRepository
+import com.friendsflix.presentation.profile.ProfileViewModel
 import com.friendsflix.presentation.signup.SignUpViewModel
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
@@ -27,12 +29,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 const val LOGGING_INTERCEPTOR = "LOGGING_INTERCEPTOR"
 const val API_KEY_INTERCEPTOR = "API_KEY_INTERCEPTOR"
-const val BASE_URL = "http://192.168.0.104:8080/"
+const val BASE_URL = "http://10.0.2.2:8080/"
 
 val dataModule = module {
-    factory<MovieDataSource> { MovieDataSourceImpl(get()) }
+    single<MovieDataSource> { MovieDataSourceImpl(get()) }
     factory<HomeRepository> { HomeRepositoryImpl(get()) }
     factory<LoginRepository> { LoginRepositoryImpl(get()) }
+    factory<ProfileRepository> { ProfileRepository(get()) }
     factory<SignUpRepository> { SignUpRepositoryImpl(get()) }
     factory<MovieDetailRepository> { MovieDetailRepositoryImpl(get()) }
 }
@@ -58,6 +61,7 @@ val networkModule = module {
 }
 
 val presentationModule = module {
+    viewModel { ProfileViewModel(get()) }
     viewModel { LoginViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { HomeViewModel(get()) }

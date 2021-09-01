@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.friendsflix.domain.repository.MovieDetailRepository
 import com.friendsflix.utils.extentions.launchSuspendFun
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MovieDetailViewModel(
     private val movieDetailRepository: MovieDetailRepository
@@ -13,6 +15,23 @@ class MovieDetailViewModel(
 
     private val _state = MutableLiveData<MovieDetailState>()
     val state: LiveData<MovieDetailState> = _state
+
+    fun makeComment(comment: String, movieId: Int) {
+        val formato = SimpleDateFormat("dd/MM/yyyy")
+
+        viewModelScope.launchSuspendFun(
+            block = {
+                movieDetailRepository.makeComment(
+                    comment = comment,
+                    movieId = movieId,
+                    date = formato.format(Date())
+                )
+            },
+            onSuccess = { _state.value = MovieDetailState.Reload },
+            onLoading = { _state.value = MovieDetailState.Loading(it) },
+            onError = { _state.value = MovieDetailState.ShowError(it.message) }
+        )
+    }
 
     fun fetchMovieDetails(movieId: Int) {
         viewModelScope.launchSuspendFun(

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -32,6 +33,13 @@ class MovieDetailActivity : AppCompatActivity() {
         binding = ActivityMovieDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.commentbutton.setOnClickListener {
+            (intent.extras?.getSerializable(MOVIE_ID) as? Args)?.let {
+                val text = binding.commentEt.text.toString()
+                binding.commentEt.setText("")
+                viewModel.makeComment(text, it.movieId)
+            }
+        }
         setupViewModel()
         fetchMovieDetail()
     }
@@ -55,20 +63,20 @@ class MovieDetailActivity : AppCompatActivity() {
             viewModel.favoriteMovie(movieDetail.id, !movieDetail.favorite)
         }
 
-        binding.rating.text = "Rating" + movieDetail.rating
+        binding.rating.text = "Rating: " + movieDetail.rating
 
         binding.rating.setOnClickListener {
             showAlertWithTextInputLayout(movieDetail.id)
         }
 
-        if (movieDetail.favorite) {
+        if (!movieDetail.favorite) {
             AppCompatResources.getDrawable(this, R.drawable.ic_baseline_favorite_border_24)?.let {
                 binding.movieFavorite.setImageDrawable(it)
             }
         }
 
         Glide.with(this)
-            .load("https://image.tmdb.org/t/p/w500/" + movieDetail.imageUrl)
+            .load(movieDetail.imageUrl)
             .centerCrop()
             .into(binding.movieImage)
     }

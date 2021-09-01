@@ -40,7 +40,7 @@ class MovieListAdapter(
 
             Glide
                 .with(movieImage)
-                .load("https://image.tmdb.org/t/p/w500/"+movie.imageUrl)
+                .load(movie.imageUrl)
                 .centerCrop()
                 .into(movieImage)
         }

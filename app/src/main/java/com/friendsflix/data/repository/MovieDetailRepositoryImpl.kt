@@ -13,7 +13,7 @@ class MovieDetailRepositoryImpl(
     private val dataSource: MovieDataSource
 ) : MovieDetailRepository {
     override suspend fun favoriteMovie(movieId: Int, favorite: Boolean) {
-        dataSource.favorite(1, movieId, favorite)
+        dataSource.favorite(movieId, favorite)
     }
 
     override suspend fun getMovieDetail(movieId: Int): MovieDetail {
@@ -25,7 +25,7 @@ class MovieDetailRepositoryImpl(
     }
 
     override suspend fun makeComment(movieId: Int, comment: String, date: String) {
-        return dataSource.makeComment(userId = 1, movieId = movieId, comment = comment, date = date)
+        return dataSource.makeComment(movieId = movieId, comment = comment, date = date)
     }
 
     private fun MovieDetailResponse.toMovieDetail() = MovieDetail(

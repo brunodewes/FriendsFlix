@@ -1,5 +1,6 @@
 package com.friendsflix.presentation.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import com.friendsflix.domain.enums.MovieCategory
 import com.friendsflix.domain.model.Movie
 import com.friendsflix.presentation.home.movielist.MovieCategoryListAdapter
 import com.friendsflix.presentation.moviedetail.MovieDetailActivity
+import com.friendsflix.presentation.profile.ProfileActivity
 import com.friendsflix.utils.extentions.setupRecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,6 +24,10 @@ class HomeActivity : AppCompatActivity() {
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.img.setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java))
+        }
 
         setupRecyclerView()
         setupViewModel()

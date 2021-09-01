@@ -17,7 +17,10 @@ class HomeRepositoryImpl(
             val new = async { getNew() }
             val topRated = async { getTopRated() }
             val popular = async { getPopular() }
-            new.await().plus(topRated.await()).plus(popular.await())
+            val action = async { getAction() }
+            val upcoming = async { getUpcoming() }
+            new.await().plus(topRated.await()).plus(popular.await()).plus(action.await())
+                .plus(upcoming.await())
         }
         return async.await()
     }
@@ -34,6 +37,16 @@ class HomeRepositoryImpl(
 
     private suspend fun getPopular(): List<Movie> {
         val category = MovieCategory.POPULAR
+        return movieDataSource.movieList(category.title).toMovie(category)
+    }
+
+    private suspend fun getAction(): List<Movie> {
+        val category = MovieCategory.ACTION
+        return movieDataSource.movieList(category.title).toMovie(category)
+    }
+
+    private suspend fun getUpcoming(): List<Movie> {
+        val category = MovieCategory.UPCOMING
         return movieDataSource.movieList(category.title).toMovie(category)
     }
 

@@ -5,5 +5,8 @@ enum class MovieCategory(
 ) {
     TOP_RATED("Top Rated"),
     POPULAR("Popular"),
-    NEW("Novos")
+    NEW("New"),
+    ACTION("Action"),
+    UPCOMING("Upcoming"),
+    FAVORITE("Favorites")
 }
