@@ -22,4 +22,22 @@ class MovieDetailViewModel(
             onError = { _state.value = MovieDetailState.ShowError(it.message) }
         )
     }
+
+    fun favoriteMovie(movieId: Int, favorite: Boolean) {
+        viewModelScope.launchSuspendFun(
+            block = { movieDetailRepository.favoriteMovie(movieId, favorite) },
+            onSuccess = { _state.value = MovieDetailState.Reload },
+            onLoading = { _state.value = MovieDetailState.Loading(it) },
+            onError = { _state.value = MovieDetailState.ShowError(it.message) }
+        )
+    }
+
+    fun rate(movieId: Int, rate: Float) {
+        viewModelScope.launchSuspendFun(
+            block = { movieDetailRepository.rateMovie(movieId, rate) },
+            onSuccess = { _state.value = MovieDetailState.Reload },
+            onLoading = { _state.value = MovieDetailState.Loading(it) },
+            onError = { _state.value = MovieDetailState.ShowError(it.message) }
+        )
+    }
 }

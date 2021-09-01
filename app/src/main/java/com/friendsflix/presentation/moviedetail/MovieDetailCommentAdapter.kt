@@ -7,7 +7,7 @@ import com.friendsflix.databinding.ItemCommentBinding
 import com.friendsflix.domain.model.MovieDetailComment
 
 class MovieDetailCommentAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var commentItems: List<MovieDetailComment> = emptyList()
+     var commentItems: List<MovieDetailComment> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()

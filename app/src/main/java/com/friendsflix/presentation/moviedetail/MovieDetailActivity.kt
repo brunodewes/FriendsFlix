@@ -3,12 +3,18 @@ package com.friendsflix.presentation.moviedetail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import com.bumptech.glide.Glide
+import com.friendsflix.R
 import com.friendsflix.databinding.ActivityMovieDetailBinding
 import com.friendsflix.domain.model.MovieDetail
-import com.friendsflix.domain.model.MovieDetailComment
+import com.friendsflix.utils.extentions.setupRecyclerView
+import com.google.android.material.textfield.TextInputLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.Serializable
 
@@ -36,27 +42,30 @@ class MovieDetailActivity : AppCompatActivity() {
                 is MovieDetailState.ShowMovieDetail -> showMovieDetail(state.movieDetail)
                 is MovieDetailState.ShowError -> showError(state.message)
                 is MovieDetailState.Loading -> showLoading(state.loading)
-                is MovieDetailState.UpdateComments -> updateComments(state.comments)
-                is MovieDetailState.UpdateRating -> updateRating(state.rating)
-                is MovieDetailState.UpdateFavorite -> updateFavorite(state.favorite)
+                MovieDetailState.Reload -> recreate()
             }
         }
     }
 
-    private fun updateFavorite(favorite: Boolean) {
-        TODO("Not yet implemented")
-    }
-
-    private fun updateRating(rating: Float) {
-        TODO("Not yet implemented")
-    }
-
-    private fun updateComments(comments: List<MovieDetailComment>) {
-        TODO("Not yet implemented")
-    }
-
     private fun showMovieDetail(movieDetail: MovieDetail) {
-        // binding.commentsRv.setupRecyclerView(adapter)
+        adapter.commentItems = movieDetail.comments
+        binding.commentsRv.setupRecyclerView(adapter)
+
+        binding.movieFavorite.setOnClickListener {
+            viewModel.favoriteMovie(movieDetail.id, !movieDetail.favorite)
+        }
+
+        binding.rating.text = "Rating" + movieDetail.rating
+
+        binding.rating.setOnClickListener {
+            showAlertWithTextInputLayout(movieDetail.id)
+        }
+
+        if (movieDetail.favorite) {
+            AppCompatResources.getDrawable(this, R.drawable.ic_baseline_favorite_border_24)?.let {
+                binding.movieFavorite.setImageDrawable(it)
+            }
+        }
 
         Glide.with(this)
             .load("https://image.tmdb.org/t/p/w500/" + movieDetail.imageUrl)
@@ -75,6 +84,38 @@ class MovieDetailActivity : AppCompatActivity() {
         (intent.extras?.getSerializable(MOVIE_ID) as? Args)?.let {
             viewModel.fetchMovieDetails(it.movieId)
         }
+    }
+
+    private fun showAlertWithTextInputLayout(movieId: Int) {
+        val textInputLayout = TextInputLayout(this)
+        textInputLayout.setPadding(
+            resources.getDimensionPixelOffset(R.dimen.dp_16), // if you look at android alert_dialog.xml, you will see the message textview have margin 14dp and padding 5dp. This is the reason why I use 19 here
+            0,
+            resources.getDimensionPixelOffset(R.dimen.dp_16),
+            0
+        )
+        val input = EditText(this)
+        input.inputType = InputType.TYPE_CLASS_NUMBER
+        textInputLayout.hint = "Rating"
+        textInputLayout.addView(input)
+
+        val alert = AlertDialog.Builder(this)
+            .setTitle("Rating")
+            .setView(textInputLayout)
+            .setMessage("Avalie o filme")
+            .setPositiveButton("Submit") { dialog, _ ->
+                var rating = input.text.toString()
+                if (rating.isEmpty()) {
+                    rating = "0"
+                }
+                viewModel.rate(movieId, rating.toFloat())
+                dialog.cancel()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.cancel()
+            }.create()
+
+        alert.show()
     }
 
     companion object {

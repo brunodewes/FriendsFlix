@@ -27,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 const val LOGGING_INTERCEPTOR = "LOGGING_INTERCEPTOR"
 const val API_KEY_INTERCEPTOR = "API_KEY_INTERCEPTOR"
-const val BASE_URL = "https://api.themoviedb.org/3/"
+const val BASE_URL = "https://127.0.0.1/"
 
 val dataModule = module {
     factory<MovieDataSource> { MovieDataSourceImpl(get()) }
@@ -48,13 +48,8 @@ val networkModule = module {
 
     single {
         val client = OkHttpClient.Builder()
-        client.interceptors().add(get(named(API_KEY_INTERCEPTOR)))
         client.interceptors().add(get(named(LOGGING_INTERCEPTOR)))
         client.build()
-    }
-
-    single<Interceptor>(named(API_KEY_INTERCEPTOR)) {
-        ApiKeyInterceptor()
     }
 
     single<Interceptor>(named(LOGGING_INTERCEPTOR)) {

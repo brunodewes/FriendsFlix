@@ -6,5 +6,5 @@ class MovieDetail(
     val imageUrl: String,
     val favorite: Boolean,
     val rating: Float,
-    val comments: List<MovieDetailComment>?
+    val comments: List<MovieDetailComment>
 )

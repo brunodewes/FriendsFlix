@@ -44,16 +44,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun showMovies(movies: List<Movie>) {
-        val list = arrayListOf<Movie>()
-
-        movies.forEach {
-            list.add(it.copy(category = MovieCategory.TOP_RATED))
-            list.add(it.copy(category = MovieCategory.NEW))
-            list.add(it.copy(category = MovieCategory.POPULAR))
-        }
-
-
-        adapter.movies = list
+        adapter.movies = movies
     }
 
     private fun showLoading(loading: Boolean) {
