@@ -16,7 +16,7 @@ class HomeViewModel(
 
     fun getPopularMovies() {
         viewModelScope.launchSuspendFun(
-            block = { homeRepository.fetchTopRatedMovies() },
+            block = { homeRepository.getAllMovies() },
             onSuccess = { _state.value = HomeState.Movies(it) },
             onLoading = { _state.value = HomeState.Loading(it) },
             onError = { _state.value = HomeState.Error(it.message) }

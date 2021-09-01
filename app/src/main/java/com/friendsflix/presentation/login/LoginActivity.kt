@@ -56,10 +56,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showLoading(loading: Boolean) {
-
+        binding.confirmLoginButton.isEnabled = !loading
+        binding.confirmSignupButton.isEnabled = !loading
     }
 
     private fun showErrorMessage(message: String?) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        runOnUiThread {
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        }
     }
 }

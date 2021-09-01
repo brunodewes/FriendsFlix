@@ -6,12 +6,14 @@ import com.friendsflix.data.remote.model.MovieDetailResponse
 import retrofit2.http.*
 
 interface MovieService {
+    @FormUrlEncoded
     @POST("login")
     suspend fun login(
         @Field("username") username: String,
         @Field("password") password: String
     ): LoginResponse
 
+    @FormUrlEncoded
     @POST("signup")
     suspend fun signup(
         @Field("username") username: String,
